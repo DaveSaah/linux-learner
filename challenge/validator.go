@@ -6,11 +6,19 @@ import (
 	"strings"
 )
 
-func ValidateCommand(userInput, expectedCommand, validationType string) bool {
+// ValidateCommand compares the user's command against the expected command,
+// using the provided validation type ("exact_match" or "output_match").
+// It also prints feedback and suggestions if the validation fails.
+func ValidateCommand(
+	userInput, expectedCommand, validationType string,
+	feedback []InputFeedback,
+) bool {
 	userResult := commands.RunCommand(userInput)
 
+	// Check for exact match or output match based on validation type
 	switch validationType {
 	case "exact_match":
+		// Normalize both commands to ignore differences in quote styles
 		normalizedInput := normalizeCommand(userInput)
 		normalizedExpected := normalizeCommand(expectedCommand)
 		if normalizedInput == normalizedExpected {
@@ -25,35 +33,31 @@ func ValidateCommand(userInput, expectedCommand, validationType string) bool {
 		}
 	}
 
-	// feedback when it fails
+	// If validation fails, provide feedback based on input feedback
 	fmt.Println("Incorrect command.")
+	printInputFeedback(userInput, feedback)
+
+	// Provide shell error if there was one
 	if userResult.Err != nil {
 		fmt.Printf("Shell error:\n%s\n", userResult.Stderr)
-	}
-
-	suggestion := suggestFix(userInput)
-	if suggestion != "" {
-		fmt.Printf("Suggestion: %s\n", suggestion)
 	}
 
 	return false
 }
 
-func suggestFix(cmd string) string {
-	if strings.Count(cmd, "'")%2 != 0 ||
-		strings.Count(cmd, "\"")%2 != 0 {
-		return "Check your quotes — looks like one might be missing or unmatched."
+// printInputFeedback matches user input against predefined feedback patterns.
+// It helps the user understand why a particular input is incorrect.
+func printInputFeedback(userInput string, feedback []InputFeedback) {
+	for _, fb := range feedback {
+		// If the input matches a feedback pattern, print the corresponding response
+		if strings.Contains(userInput, fb.Match) {
+			fmt.Printf("Feedback: %s\n", fb.Response)
+		}
 	}
-	if strings.Contains(cmd, "ecoh") {
-		return "Did you mean `echo`?"
-	}
-	if strings.Contains(cmd, "cd .. /") {
-		return "Try removing the space between `..` and `/`."
-	}
-	return ""
 }
 
+// normalizeCommand simplifies command comparison by standardizing quotes
 func normalizeCommand(cmd string) string {
-	// replace all double quotes with single
+	// Replace all double quotes with single quotes
 	return strings.ReplaceAll(cmd, "\"", "'")
 }
