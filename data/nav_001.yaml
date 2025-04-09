@@ -1,0 +1,19 @@
+id: "nav_001"
+title: "Hello, World!"
+topic: "Basic Navigation"
+description: >
+  Start by printing "Hello, world!" to the terminal.
+
+objective: "Learn to output text using the echo command."
+expected_command: "echo 'Hello, world!'"
+validation_type: "output_match"
+
+hints:
+  - level: 1
+    text: "Try using the 'echo' command."
+  - level: 2
+    text: "Run: echo 'Hello, world!'"
+
+reflection:
+  - "What did the echo command do?"
+  - "What happens if you omit the quotes?"
