@@ -1,19 +1,46 @@
 id: "nav_001"
 title: "Hello, World!"
 topic: "Basic Navigation"
+
+scenario: >
+  You've just logged into your first Linux terminal as a junior engineer.
+  The screen is blank, the cursor is blinking — it's time to speak!
+  Try saying something simple like: Hello, world.
+  (Hint: There's a command that lets you "echo" your thoughts into the terminal.)
+
 description: >
-  Start by printing "Hello, world!" to the terminal.
+  Your mission is to print "Hello, world!" to the terminal using
+  the right command and syntax.
 
 objective: "Learn to output text using the echo command."
 expected_command: "echo 'Hello, world!'"
 validation_type: "output_match"
 
+input_feedback:
+  - match: "echo Hello, world!"
+    response: > 
+      Almost! You're missing quotes, which help treat the sentence
+      as a single argument.
+
+  - match: "print"
+    response: > 
+      'print' is common in programming languages like Python, but 
+       not here. Try a shell command.
+
+  - match: "ecoh"
+    response: "Did you mean `echo`?"
+
 hints:
   - level: 1
-    text: "Try using the 'echo' command."
+    text: "The command you're looking for starts with an 'e' and ends in 'cho'."
   - level: 2
-    text: "Run: echo 'Hello, world!'"
+    text: "Are you missing any quotes ('')?"
+  - level: 3
+    text: "Use the 'echo' command with your message in quotes: echo 'Hello, world!'"
 
 reflection:
-  - "What did the echo command do?"
-  - "What happens if you omit the quotes?"
+  - question: "What did the 'echo' command do?"
+    input_required: true
+  - question: "Why do you think the quotes were necessary?"
+    input_required: false
+
