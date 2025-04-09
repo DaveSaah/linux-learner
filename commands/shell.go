@@ -6,9 +6,9 @@ import (
 )
 
 type CommandResult struct {
-	Output string
-	Stderr string
-	Err    error
+	Output string // The standard output of the executed command
+	Stderr string // The standard error output (if any) from the command
+	Err    error  // Any error that occurred during the execution of the command
 }
 
 func RunCommand(command string) CommandResult {
