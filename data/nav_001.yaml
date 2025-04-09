@@ -44,3 +44,6 @@ reflection:
   - question: "Why do you think the quotes were necessary?"
     input_required: false
 
+success_message: > 
+  Great job! You just echoed your first message. 
+  Let’s keep going — the terminal awaits.
