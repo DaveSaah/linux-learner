@@ -5,7 +5,7 @@ topic: "Basic Navigation"
 scenario: >
   You've just logged into your first Linux terminal as a junior engineer.
   The screen is blank, the cursor is blinking — it's time to speak!
-  Try saying something simple like: Hello, world.
+  Try saying something simple like: Hello, world!.
   (Hint: There's a command that lets you "echo" your thoughts into the terminal.)
 
 description: >
@@ -40,10 +40,8 @@ hints:
 
 reflection:
   - question: "What did the 'echo' command do?"
-    input_required: true
   - question: "Why do you think the quotes were necessary?"
-    input_required: false
 
 success_message: > 
-  Great job! You just echoed your first message. 
+  Great job! You just echoed your first message.
   Let’s keep going — the terminal awaits.
