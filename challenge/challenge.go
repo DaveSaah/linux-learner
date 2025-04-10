@@ -23,8 +23,7 @@ type InputFeedback struct {
 // ReflectionQuestion represents a post-challenge prompt for deeper learning.
 // It can optionally require the learner to provide an answer.
 type ReflectionQuestion struct {
-	Question      string `yaml:"question"`       // The reflection question text
-	InputRequired bool   `yaml:"input_required"` // Whether the learner must type an answer
+	Question string `yaml:"question"` // The reflection question text
 }
 
 // Challenge represents the structure of a YAML challenge file.

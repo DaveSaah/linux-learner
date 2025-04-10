@@ -34,12 +34,11 @@ func ValidateCommand(
 	}
 
 	// If validation fails, provide feedback based on input feedback
-	fmt.Println("Incorrect command.")
 	printInputFeedback(userInput, feedback)
 
 	// Provide shell error if there was one
 	if userResult.Err != nil {
-		fmt.Printf("Shell error:\n%s\n", userResult.Stderr)
+		fmt.Printf("Shell error:\n%s", userResult.Stderr)
 	}
 
 	return false
