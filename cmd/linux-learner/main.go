@@ -89,6 +89,7 @@ func main() {
 
 		case "help":
 			displayChallengeDetails(chal)
+			displayPossibleCmds()
 			continue
 		}
 
@@ -150,8 +151,13 @@ func displayChallengeDetails(chal *challenge.Challenge) {
 				"Description:", term.Colors.Cyan,
 			),
 		),
-		chal.Description,
 	)
+
+	scenarioLines := formatTextWithLineBreaks(chal.Description, 60)
+	for _, line := range scenarioLines {
+		fmt.Println("  " + line) // Indent each line for better visual separation
+	}
+
 	fmt.Println(
 		term.Bold(
 			term.ColorText(
@@ -188,14 +194,21 @@ func displayChallengeHeader(chal *challenge.Challenge) {
 		),
 		chal.Title,
 	)
-	fmt.Println(
+	fmt.Print(
 		term.BoldUnderline(
 			term.ColorText(
 				"Scenario:", term.Colors.Blue,
 			),
 		),
-		chal.Scenario,
 	)
+
+	// Format the scenario text with proper line breaks
+	// Assuming a line width of 80 characters for better readability
+	scenarioLines := formatTextWithLineBreaks(chal.Scenario, 60)
+	for _, line := range scenarioLines {
+		fmt.Println("  " + line) // Indent each line for better visual separation
+	}
+
 	fmt.Println(
 		term.BoldUnderline(
 			term.ColorText(
@@ -205,6 +218,10 @@ func displayChallengeHeader(chal *challenge.Challenge) {
 		chal.Objective,
 	)
 
+	displayPossibleCmds()
+}
+
+func displayPossibleCmds() {
 	// Predefined list of possible commands
 	var possibleCommands = []string{
 		"exit - Exit the challenge",
@@ -230,6 +247,34 @@ func displayChallengeHeader(chal *challenge.Challenge) {
 			),
 		)
 	}
+}
+
+// formatTextWithLineBreaks splits a long text into lines of specified width
+func formatTextWithLineBreaks(text string, lineWidth int) []string {
+	words := strings.Fields(text)
+	lines := []string{}
+
+	currentLine := ""
+	for _, word := range words {
+		// If adding this word exceeds the line width, start a new line
+		if len(currentLine)+len(word)+1 > lineWidth && currentLine != "" {
+			lines = append(lines, currentLine)
+			currentLine = word
+		} else {
+			if currentLine == "" {
+				currentLine = word
+			} else {
+				currentLine += " " + word
+			}
+		}
+	}
+
+	// Add the last line if it's not empty
+	if currentLine != "" {
+		lines = append(lines, currentLine)
+	}
+
+	return lines
 }
 
 // clearScreen clears the terminal screen using ANSI escape codes
