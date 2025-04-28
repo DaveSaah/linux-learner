@@ -13,9 +13,17 @@ import (
 //go:embed data/*.yaml
 var challengeFS embed.FS
 
+var ChallengeFile string
+
 func main() {
 	// get challenge content
-	chal, err := challenge.LoadChallenge(challengeFS, "data/nav_001.yaml")
+	if ChallengeFile == "" {
+		fmt.Println("No challenge file specified at build time.")
+		return
+	}
+
+	// Load the challenge file passed at build-time
+	chal, err := challenge.LoadChallenge(challengeFS, "data/"+ChallengeFile)
 	if err != nil {
 		fmt.Println("Error loading challenge:", err)
 		return
